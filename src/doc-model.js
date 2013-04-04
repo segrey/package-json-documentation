@@ -47,6 +47,10 @@ function buildFromJQuery(htmlContent, window, callback) {
       }
     }
   });
+  var libs = addCustomEntries();
+  libs.forEach(function(entry) {
+    entryStorage.addEntry(entry);
+  });
   callback(null, entryStorage);
 }
 
@@ -109,6 +113,23 @@ function provideCustomLibraries(entryName) {
     ];
   }
   return null;
+}
+
+function addCustomEntries() {
+  return [
+    new Entry('licenses', util.getShortDescription('licenses'),
+      '<p>You should specify a license for your package so that people know how they are\n' +
+      'permitted to use it, and any restrictions you\'re placing on it.</p>\n' +
+      '<p>It is more verbose plural form, then "license":</p>\n' +
+      '<pre><code>"licenses" : [\n' +
+      '{ "type" : "MyLicense"\n' +
+      ', "url" : "http://github.com/owner/project/path/to/license"\n' +
+      '}\n' +
+    ']\n' +
+    '</code></pre>\n' +
+    '<p>It\'s also a good idea to include a license file at the top level in your package.</p>\n'
+    )
+  ];
 }
 
 function EntryStorage() {

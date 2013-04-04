@@ -47,6 +47,7 @@ exports.getShortDescription = (function() {
     'homepage' : 'Url to the project homepage',
     'bugs' : 'Project\'s issue tracker and/or email address',
     'license' : 'License of project',
+    'licenses' : 'Licenses of project',
     'author' : 'Author of package',
     'contributors' : 'Contributors of package',
     'files' : 'Files to include in project',

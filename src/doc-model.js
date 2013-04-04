@@ -29,13 +29,22 @@ function buildFromJQuery(htmlContent, window, callback) {
     var $h2 = $(this);
     var name = $h2.html();
     if (util.doesItLookLikePackageJsonEntry(name)) {
-      var $end = $h2.next();
-      while (!$end.is('h2')) {
-        $end = $end.next();
+      var customLibraries = provideCustomLibraries(name);
+      if (customLibraries != null) {
+        customLibraries.forEach(function(entry) {
+          entryStorage.addEntry(entry);
+        });
       }
-      var fullDescription = getTextBetween(htmlContent, $h2, $end);
-      var entry = new Entry(name, fullDescription);
-      entryStorage.addEntry(entry);
+      else {
+        var $end = $h2.next();
+        while (!$end.is('h2')) {
+          $end = $end.next();
+        }
+        var shortDescription = util.getShortDescription(name);
+        var fullDescription = getTextBetween(htmlContent, $h2, $end);
+        var entry = new Entry(name, shortDescription, fullDescription);
+        entryStorage.addEntry(entry);
+      }
     }
   });
   callback(null, entryStorage);
@@ -63,6 +72,45 @@ function startIndexOf(htmlContent, $obj) {
   return startInd;
 }
 
+function provideCustomLibraries(entryName) {
+  if (entryName === 'people fields: author, contributors') {
+    return [
+      new Entry('author',
+        util.getShortDescription('author'),
+        '<p>The "author" is one person.  A "person"\n' +
+        'is an object with a "name" field and optionally "url" and "email", like this:</p>\n' +
+        '<pre><code>{ "name" : "Barney Rubble"\n' +
+        ', "email" : "b@rubble.com"\n' +
+        ', "url" : "http://barnyrubble.tumblr.com/"\n' +
+        '}\n' +
+        '</code></pre>\n' +
+        '<p>Or you can shorten that all into a single string, and npm will parse it for you:</p>\n' +
+        '<pre><code>"Barney Rubble &lt;b@rubble.com&gt; (http://barnyrubble.tumblr.com/)\n' +
+        '</code></pre>\n' +
+        '<p>Both email and url are optional either way.</p>\n' +
+        '<p>npm also sets a top-level "maintainers" field with your npm user info.</p>\n'
+      ),
+      new Entry(
+        'contributors',
+        util.getShortDescription('contributors'),
+        '<p>The "contributors" is an array of "person".  A "person"\n' +
+        'is an object with a "name" field and optionally "url" and "email", like this:</p>\n' +
+        '<pre><code>{ "name" : "Barney Rubble"\n' +
+        ', "email" : "b@rubble.com"\n' +
+        ', "url" : "http://barnyrubble.tumblr.com/"\n' +
+        '}\n' +
+        '</code></pre>\n' +
+        '<p>Or you can shorten that all into a single string, and npm will parse it for you:</p>\n' +
+        '<pre><code>"Barney Rubble &lt;b@rubble.com&gt; (http://barnyrubble.tumblr.com/)\n' +
+        '</code></pre>\n' +
+        '<p>Both email and url are optional either way.</p>\n' +
+        '<p>npm also sets a top-level "maintainers" field with your npm user info.</p>\n'
+      )
+    ];
+  }
+  return null;
+}
+
 function EntryStorage() {
   this.entryByName = {};
   this.entries = [];
@@ -77,8 +125,9 @@ EntryStorage.prototype.addEntry = function(entry) {
 };
 
 /** @constructor */
-function Entry(name, fullDescription) {
+function Entry(name, shortDescription, fullDescription) {
   this.name = name;
+  this.shortDescription = shortDescription;
   this.fullDescription = fullDescription;
 }
 

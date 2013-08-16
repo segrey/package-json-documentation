@@ -16,8 +16,28 @@ function buildFromHtml(html, callback) {
       if (errors) {
         callback(errors);
       }
-      buildFromJQuery(html, window, callback);
+      else {
+        buildFromJQuery(html, window, callback);
+      }
     }
+  });
+}
+
+function fixRelativeLinks($, $root) {
+  $('a', $root).each(function (index, a) {
+    var $a = $(a);
+    var href = $a.attr('href');
+    if (href != null) {
+      var absolute = href.indexOf('http://') === 0 || href.indexOf('https://') === 0;
+      if (!absolute) {
+        if (href.indexOf('/') !== 0) {
+          href = '/doc/' + href;
+        }
+        href = 'https://npmjs.org' + href;
+        $a.attr('href', href);
+      }
+    }
+    console.log('Fixed href: ' + $a[0].outerHTML);
   });
 }
 
@@ -25,7 +45,10 @@ function buildFromJQuery(htmlContent, window, callback) {
   var $ = window.$;
   var $body = $(window.document.body);
   var entryStorage = new EntryStorage();
-  $body.children('h2').each(function() {
+  var $root = $body.children('div');
+  fixRelativeLinks($, $root);
+  var rootContent = $root[0].outerHTML;
+  $root.children('h2').each(function() {
     var $h2 = $(this);
     var name = $h2.html();
     if (util.doesItLookLikePackageJsonEntry(name)) {
@@ -41,7 +64,7 @@ function buildFromJQuery(htmlContent, window, callback) {
           $end = $end.next();
         }
         var shortDescription = util.getShortDescription(name);
-        var fullDescription = getTextBetween(htmlContent, $h2, $end);
+        var fullDescription = getTextBetween(rootContent, $h2, $end);
         var entry = new Entry(name, shortDescription, fullDescription);
         entryStorage.addEntry(entry);
       }

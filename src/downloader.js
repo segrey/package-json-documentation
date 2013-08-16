@@ -16,14 +16,6 @@ function downloadHtmlPage(callback) {
 
 downloadHtmlPage(function(error, body) {
   if (body !== null) {
-//    util.savePackageJsonDocMarkDown(body);
-//    generateHtmlFromMarkDownAndSave(body);
     util.savePackageJsonDocHtml(body);
   }
 });
-
-function generateHtmlFromMarkDownAndSave(markDownContent) {
-  var md = require('node-markdown').Markdown;
-  var html = md(markDownContent);
-  html = '<html><body>' + html + '</body></html>';
-}

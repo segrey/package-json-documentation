@@ -17,10 +17,18 @@ function buildFromHtml(html, callback) {
         callback(errors);
       }
       else {
-        buildFromJQuery(html, window, callback);
+        buildFromJQuery(window, callback);
       }
     }
   });
+}
+
+function buildFromJQuery(window, callback) {
+  var $ = window.$;
+  var $body = $(window.document.body);
+  var $root = $body.children('div');
+  fixRelativeLinks($, $root);
+  build($, $root, callback);
 }
 
 function fixRelativeLinks($, $root) {
@@ -41,20 +49,16 @@ function fixRelativeLinks($, $root) {
   });
 }
 
-function buildFromJQuery(htmlContent, window, callback) {
-  var $ = window.$;
-  var $body = $(window.document.body);
+function build($, $root, callback) {
+  var html = $root[0].outerHTML;
   var entryStorage = new EntryStorage();
-  var $root = $body.children('div');
-  fixRelativeLinks($, $root);
-  var rootContent = $root[0].outerHTML;
   $root.children('h2').each(function() {
     var $h2 = $(this);
     var name = $h2.html();
     if (util.doesItLookLikePackageJsonEntry(name)) {
-      var customLibraries = provideCustomLibraries(name);
-      if (customLibraries != null) {
-        customLibraries.forEach(function(entry) {
+      var customEntries = provideCustomEntries(name);
+      if (customEntries != null) {
+        customEntries.forEach(function(entry) {
           entryStorage.addEntry(entry);
         });
       }
@@ -64,7 +68,7 @@ function buildFromJQuery(htmlContent, window, callback) {
           $end = $end.next();
         }
         var shortDescription = util.getShortDescription(name);
-        var fullDescription = getTextBetween(rootContent, $h2, $end);
+        var fullDescription = getTextBetween(html, $h2, $end);
         var entry = new Entry(name, shortDescription, fullDescription);
         entryStorage.addEntry(entry);
       }
@@ -99,7 +103,7 @@ function startIndexOf(htmlContent, $obj) {
   return startInd;
 }
 
-function provideCustomLibraries(entryName) {
+function provideCustomEntries(entryName) {
   if (entryName === 'people fields: author, contributors') {
     return [
       new Entry('author',

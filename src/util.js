@@ -1,29 +1,27 @@
 'use strict';
 
-var fs = require('fs'),
-    join = require('path').join,
-    pathToPackageJsonDocHtml = join(__dirname, '../data/package-json-doc.html')
+var fs = require('fs')
+  , join = require('path').join
+  , pathToPackageJsonDocHtml = join(__dirname, '../data/package-json-doc.html')
+  , pathToCustomPackageJsonDocHtml = join(__dirname, '../data/custom-package-json-doc.html')
   ;
 
 
-exports.savePackageJsonDocHtml = function(htmlContent) {
-    var writeStream = fs.createWriteStream(
-        pathToPackageJsonDocHtml,
-        { flags: 'w' }
-    );
-    writeStream.end(htmlContent);
-};
+function savePackageJsonDocHtml(htmlContent) {
+  var writeStream = fs.createWriteStream(
+    pathToPackageJsonDocHtml,
+    { flags: 'w' }
+  );
+  writeStream.end(htmlContent);
+}
 
-exports.readPackageJsonDocHtmlFileContent = function() {
+function loadPackageJsonDocHtml() {
   return fs.readFileSync(pathToPackageJsonDocHtml).toString();
-};
+}
 
-exports.doesItLookLikePackageJsonEntry = (function() {
-  var badNames = ['DESCRIPTION', 'DEFAULT VALUES', 'SEE ALSO'];
-  return function(entryName) {
-    return badNames.indexOf(entryName) === -1;
-  };
-})();
+function loadCustomPackageJsonDocHtml() {
+  return fs.readFileSync(pathToCustomPackageJsonDocHtml).toString();
+}
 
 exports.getShortDescription = (function() {
   var shortDescriptions = {
@@ -66,3 +64,6 @@ exports.getShortDescription = (function() {
   };
 }());
 
+exports.savePackageJsonDocHtml = savePackageJsonDocHtml;
+exports.loadPackageJsonDocHtml = loadPackageJsonDocHtml;
+exports.loadCustomPackageJsonDocHtml = loadCustomPackageJsonDocHtml;

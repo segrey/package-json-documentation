@@ -11,9 +11,11 @@ var jsdom = require('jsdom')
   , EntryStorage = entryModel.EntryStorage
     ;
 
-function buildFromHtml(html, callback) {
+function buildFromHtml(pathToHtmlFile, callback) {
+  console.log('Processing ' + pathToHtmlFile + ' ...');
+  var htmlContent = util.loadFileContentSync(pathToHtmlFile);
   jsdom.env({
-    html: html,
+    html: htmlContent,
     src: [jquery],
     done: function (errors, window) {
       if (errors) {
@@ -40,6 +42,7 @@ function buildFromJQuery(window, callback) {
 function fixRelativeLinks($, $root) {
   $('a', $root).each(function (index, a) {
     var $a = $(a);
+    var initialHtml = $a[0].outerHTML;
     var href = $a.attr('href');
     if (href != null) {
       var absolute = href.indexOf('http://') === 0 || href.indexOf('https://') === 0;
@@ -51,7 +54,7 @@ function fixRelativeLinks($, $root) {
         $a.attr('href', href);
       }
     }
-    console.log('Fixed href: ' + $a[0].outerHTML);
+    console.log('Anchor fixed: ' + initialHtml + '  -->  ' + $a[0].outerHTML);
   });
 }
 
@@ -61,13 +64,18 @@ function build($, $rootElement, entryStorage) {
     var $h2 = $(this);
     var name = $h2.html();
     if (entryModel.isBadPackageJsonName(name)) {
-      console.warn('Bad package.json entry: ' + name);
+      console.info('[WARN] Bad package.json entry: ' + name);
       return;
     }
-    var $end = $h2.next('h2');
-    var shortDescription = util.getShortDescription(name);
+    var $end = $h2.next();
+    while (!$end.is('h2') && $end.length === 1) {
+      $end = $end.next();
+    }
+    if ($end.length > 1) {
+      throw Error();
+    }
     var fullDescription = getTextBetween(html, $h2, $end);
-    var entry = new Entry(name, shortDescription, fullDescription);
+    var entry = new Entry(name, '\n' + fullDescription.trim());
     entryStorage.addEntry(entry);
   });
 }
@@ -100,19 +108,31 @@ function startIndexOf(htmlContent, $obj) {
 
 function merge(primary, secondary) {
   var merged = new EntryStorage();
-  primary.entries.forEach(function (entry) {
-    merged.addEntry(entry);
-  });
-  secondary.entries.forEach(function (entry) {
-    merged.addEntry(entry);
+  Object.keys(entryModel.getEntryNames()).forEach(function (entryName) {
+    var primaryEntry = primary.getEntryByName(entryName);
+    var secondaryEntry = secondary.getEntryByName(entryName);
+    var resultEntry;
+    if (primaryEntry) {
+      resultEntry = primaryEntry;
+      if (secondaryEntry) {
+        throw Error('Merge conflict!');
+      }
+    }
+    else if (secondaryEntry) {
+      resultEntry = secondaryEntry;
+    }
+    if (resultEntry) {
+      merged.addEntry(resultEntry);
+    }
+    else {
+      merged.addEntry(new Entry(entryName, null));
+    }
   });
   return merged;
 }
 
-buildFromHtml(util.loadPackageJsonDocHtml(), function(mainEntryStorage) {
-  console.log('entryStorage is ready for main package.json documentation');
-  buildFromHtml(util.loadCustomPackageJsonDocHtml(), function(customEntryStorage) {
-    console.log('entryStorage is ready for secondary package.json documentation');
+buildFromHtml(util.getPathToPackageJsonDocHtmlFile(), function(mainEntryStorage) {
+  buildFromHtml(util.getPathToCustomPackageJsonDocHtmlFile(), function(customEntryStorage) {
     var mergedEntryStorage = merge(mainEntryStorage, customEntryStorage);
     var jadePath = join(__dirname, 'toXml.jade');
     var jadeContent = fs.readFileSync(jadePath).toString();

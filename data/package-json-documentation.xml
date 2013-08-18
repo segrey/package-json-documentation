@@ -4,7 +4,6 @@
   <entry name="name">
     <short-description>Name of package</short-description>
     <full-description><![CDATA[
-
 <p>The <em>most</em> important things in your package.json are the name and version fields.
 Those are actually required, and your package won't install without
 them.  The name and version together form an identifier that is assumed
@@ -19,14 +18,11 @@ field.  (See below.)</li><li>The name ends up being part of a URL, an argument o
 folder name. Any name with non-url-safe characters will be rejected.
 Also, it can't start with a dot or an underscore.</li><li>The name will probably be passed as an argument to require(), so it should
 be something short, but also reasonably descriptive.</li><li>You may want to check the npm registry to see if there's something by that name
-already, before you get too attached to it.  http://registry.npmjs.org/</li></ul>
-
-]]></full-description>
+already, before you get too attached to it.  http://registry.npmjs.org/</li></ul>]]></full-description>
   </entry>
   <entry name="version">
     <short-description>Version of package</short-description>
     <full-description><![CDATA[
-
 <p>The <em>most</em> important things in your package.json are the name and version fields.
 Those are actually required, and your package won't install without
 them.  The name and version together form an identifier that is assumed
@@ -37,46 +33,34 @@ changes to the version.</p>
 <a href="https://github.com/isaacs/node-semver">node-semver</a>, which is bundled
 with npm as a dependency.  (<code>npm install semver</code> to use it yourself.)</p>
 
-<p>More on version numbers and ranges at <a href="https://npmjs.org/doc/misc/semver.html">semver(7)</a>.</p>
-
-]]></full-description>
+<p>More on version numbers and ranges at <a href="https://npmjs.org/doc/misc/semver.html">semver(7)</a>.</p>]]></full-description>
   </entry>
   <entry name="description">
     <short-description>Description of package</short-description>
     <full-description><![CDATA[
-
 <p>Put a description in it.  It's a string.  This helps people discover your
-package, as it's listed in <code>npm search</code>.</p>
-
-]]></full-description>
+package, as it's listed in <code>npm search</code>.</p>]]></full-description>
   </entry>
   <entry name="keywords">
     <short-description>Array of keyword strings</short-description>
     <full-description><![CDATA[
-
 <p>Put keywords in it.  It's an array of strings.  This helps people
-discover your package as it's listed in <code>npm search</code>.</p>
-
-]]></full-description>
+discover your package as it's listed in <code>npm search</code>.</p>]]></full-description>
   </entry>
   <entry name="homepage">
     <short-description>Url to the project homepage</short-description>
     <full-description><![CDATA[
-
 <p>The url to the project homepage.</p>
 
 <p><strong>NOTE</strong>: This is <em>not</em> the same as "url".  If you put a "url" field,
 then the registry will think it's a redirection to your package that has
 been published somewhere else, and spit at you.</p>
 
-<p>Literally.  Spit.  I'm so not kidding.</p>
-
-]]></full-description>
+<p>Literally.  Spit.  I'm so not kidding.</p>]]></full-description>
   </entry>
   <entry name="bugs">
     <short-description>Project's issue tracker and/or email address</short-description>
     <full-description><![CDATA[
-
 <p>The url to your project's issue tracker and / or the email address to which
 issues should be reported. These are helpful for people who encounter issues
 with your package.</p>
@@ -90,14 +74,11 @@ with your package.</p>
 <p>You can specify either one or both values. If you want to provide only a url,
 you can specify the value for "bugs" as a simple string instead of an object.</p>
 
-<p>If a url is provided, it will be used by the <code>npm bugs</code> command.</p>
-
-]]></full-description>
+<p>If a url is provided, it will be used by the <code>npm bugs</code> command.</p>]]></full-description>
   </entry>
   <entry name="license">
     <short-description>License of project</short-description>
     <full-description><![CDATA[
-
 <p>You should specify a license for your package so that people know how they are
 permitted to use it, and any restrictions you're placing on it.</p>
 
@@ -115,14 +96,26 @@ in your package.json file, you can use the more verbose plural form, like this:<
   }
 ]</code></pre>
 
-<p>It's also a good idea to include a license file at the top level in your package.</p>
-
-]]></full-description>
+<p>It's also a good idea to include a license file at the top level in your package.</p>]]></full-description>
+  </entry>
+  <entry name="licenses">
+    <short-description>Licenses of project</short-description>
+    <full-description><![CDATA[
+<p>You should specify a license for your package so that people know how they are
+permitted to use it, and any restrictions you\'re placing on it.</p>
+<p>It is more verbose plural form, then "license":</p>
+<pre><code>"licenses" : [
+{ "type" : "MyLicense"
+, "url" : "http://github.com/owner/project/path/to/license"
+}
+]
+</code></pre>
+<p>It\'s also a good idea to include a license file at the top level in your package.</p>]]></full-description>
   </entry>
   <entry name="author">
     <short-description>Author of package</short-description>
-    <full-description><![CDATA[<p>The "author" is one person.  A "person"
-is an object with a "name" field and optionally "url" and "email", like this:</p>
+    <full-description><![CDATA[
+<p>The "author" is one person.  A "person" is an object with a "name" field and optionally "url" and "email", like this:</p>
 <pre><code>{ "name" : "Barney Rubble"
 , "email" : "b@rubble.com"
 , "url" : "http://barnyrubble.tumblr.com/"
@@ -132,13 +125,12 @@ is an object with a "name" field and optionally "url" and "email", like this:</p
 <pre><code>"Barney Rubble &lt;b@rubble.com&gt; (http://barnyrubble.tumblr.com/)
 </code></pre>
 <p>Both email and url are optional either way.</p>
-<p>npm also sets a top-level "maintainers" field with your npm user info.</p>
-]]></full-description>
+<p>npm also sets a top-level "maintainers" field with your npm user info.</p>]]></full-description>
   </entry>
   <entry name="contributors">
     <short-description>Contributors of package</short-description>
-    <full-description><![CDATA[<p>The "contributors" is an array of "person".  A "person"
-is an object with a "name" field and optionally "url" and "email", like this:</p>
+    <full-description><![CDATA[
+<p>The "contributors" is an array of "person".  A "person" is an object with a "name" field and optionally "url" and "email", like this:</p>
 <pre><code>{ "name" : "Barney Rubble"
 , "email" : "b@rubble.com"
 , "url" : "http://barnyrubble.tumblr.com/"
@@ -148,13 +140,11 @@ is an object with a "name" field and optionally "url" and "email", like this:</p
 <pre><code>"Barney Rubble &lt;b@rubble.com&gt; (http://barnyrubble.tumblr.com/)
 </code></pre>
 <p>Both email and url are optional either way.</p>
-<p>npm also sets a top-level "maintainers" field with your npm user info.</p>
-]]></full-description>
+<p>npm also sets a top-level "maintainers" field with your npm user info.</p>]]></full-description>
   </entry>
   <entry name="files">
     <short-description>Files to include in project</short-description>
     <full-description><![CDATA[
-
 <p>The "files" field is an array of files to include in your project.  If
 you name a folder in the array, then it will also include the files
 inside that folder. (Unless they would be ignored by another rule.)</p>
@@ -162,14 +152,11 @@ inside that folder. (Unless they would be ignored by another rule.)</p>
 <p>You can also provide a ".npmignore" file in the root of your package,
 which will keep files from being included, even if they would be picked
 up by the files array.  The ".npmignore" file works just like a
-".gitignore".</p>
-
-]]></full-description>
+".gitignore".</p>]]></full-description>
   </entry>
   <entry name="main">
     <short-description>Entry module to package</short-description>
     <full-description><![CDATA[
-
 <p>The main field is a module ID that is the primary entry point to your program.
 That is, if your package is named <code>foo</code>, and a user installs it, and then does
 <code>require("foo")</code>, then your main module's exports object will be returned.</p>
@@ -177,14 +164,11 @@ That is, if your package is named <code>foo</code>, and a user installs it, and 
 <p>This should be a module ID relative to the root of your package folder.</p>
 
 <p>For most modules, it makes the most sense to have a main script and often not
-much else.</p>
-
-]]></full-description>
+much else.</p>]]></full-description>
   </entry>
   <entry name="bin">
     <short-description>Executable files to install into PATH</short-description>
     <full-description><![CDATA[
-
 <p>A lot of packages have one or more executable files that they'd like to
 install into the PATH. npm makes this pretty easy (in fact, it uses this
 feature to install the "npm" executable.)</p>
@@ -212,14 +196,11 @@ of the package, then you can just supply it as a string.  For example:</p>
 
 <pre><code>{ "name": "my-program"
 , "version": "1.2.5"
-, "bin" : { "my-program" : "./path/to/program" } }</code></pre>
-
-]]></full-description>
+, "bin" : { "my-program" : "./path/to/program" } }</code></pre>]]></full-description>
   </entry>
   <entry name="man">
     <short-description>Documentation files for man</short-description>
     <full-description><![CDATA[
-
 <p>Specify either a single file or an array of filenames to put in place for the
 <code>man</code> program to find.</p>
 
@@ -257,14 +238,11 @@ compressed.  The number dictates which man section the file is installed into.</
 , "man" : [ "./man/foo.1", "./man/foo.2" ]
 }</code></pre>
 
-<p>will create entries for <code>man foo</code> and <code>man 2 foo</code></p>
-
-]]></full-description>
+<p>will create entries for <code>man foo</code> and <code>man 2 foo</code></p>]]></full-description>
   </entry>
   <entry name="directories">
     <short-description>Structure of package</short-description>
     <full-description><![CDATA[
-
 <p>The CommonJS <a href="http://wiki.commonjs.org/wiki/Packages/1.0">Packages</a> spec details a
 few ways that you can indicate the structure of your package using a <code>directories</code>
 hash. If you look at <a href="http://registry.npmjs.org/npm/latest">npm's package.json</a>,
@@ -296,14 +274,11 @@ maybe, someday.</p>
 
 <h3 id="directories-example">directories.example</h3>
 
-<p>Put example scripts in here.  Someday, it might be exposed in some clever way.</p>
-
-]]></full-description>
+<p>Put example scripts in here.  Someday, it might be exposed in some clever way.</p>]]></full-description>
   </entry>
   <entry name="repository">
     <short-description>Repository of code</short-description>
     <full-description><![CDATA[
-
 <p>Specify the place where your code lives. This is helpful for people who
 want to contribute.  If the git repo is on github, then the <code>npm docs</code>
 command will be able to find you.</p>
@@ -322,26 +297,20 @@ command will be able to find you.</p>
 
 <p>The URL should be a publicly available (perhaps read-only) url that can be handed
 directly to a VCS program without any modification.  It should not be a url to an
-html project page that you put in your browser.  It's for computers.</p>
-
-]]></full-description>
+html project page that you put in your browser.  It's for computers.</p>]]></full-description>
   </entry>
   <entry name="scripts">
     <short-description>Commands to run at various times in the lifecycle of package</short-description>
     <full-description><![CDATA[
-
 <p>The "scripts" member is an object hash of script commands that are run
 at various times in the lifecycle of your package.  The key is the lifecycle
 event, and the value is the command to run at that point.</p>
 
-<p>See <code><a href="https://npmjs.org/doc/misc/npm-scripts.html">npm-scripts(7)</a></code> to find out more about writing package scripts.</p>
-
-]]></full-description>
+<p>See <code><a href="https://npmjs.org/doc/misc/npm-scripts.html">npm-scripts(7)</a></code> to find out more about writing package scripts.</p>]]></full-description>
   </entry>
   <entry name="config">
     <short-description>Configuration parameters</short-description>
     <full-description><![CDATA[
-
 <p>A "config" hash can be used to set configuration
 parameters used in package scripts that persist across upgrades.  For
 instance, if a package had the following:</p>
@@ -354,14 +323,11 @@ instance, if a package had the following:</p>
 override that by doing <code>npm config set foo:port 8001</code>.</p>
 
 <p>See <code><a href="https://npmjs.org/doc/misc/npm-config.html">npm-config(7)</a></code> and <code><a href="https://npmjs.org/doc/misc/npm-scripts.html">npm-scripts(7)</a></code> for more on package
-configs.</p>
-
-]]></full-description>
+configs.</p>]]></full-description>
   </entry>
   <entry name="dependencies">
     <short-description>Dependencies of package</short-description>
     <full-description><![CDATA[
-
 <p>Dependencies are specified with a simple hash of package name to
 version range. The version range is a string which has one or more
 space-separated descriptors.  Dependencies can also be identified with
@@ -408,14 +374,11 @@ git+http://user@hostname/project/blah.git#commit-ish
 git+https://user@hostname/project/blah.git#commit-ish</code></pre>
 
 <p>The <code>commit-ish</code> can be any tag, sha, or branch which can be supplied as
-an argument to <code>git checkout</code>.  The default is <code>master</code>.</p>
-
-]]></full-description>
+an argument to <code>git checkout</code>.  The default is <code>master</code>.</p>]]></full-description>
   </entry>
   <entry name="devDependencies">
     <short-description>Development dependencies of package</short-description>
     <full-description><![CDATA[
-
 <p>If someone is planning on downloading and using your module in their
 program, then they probably don't want or need to download and build
 the external test or documentation framework that you use.</p>
@@ -450,24 +413,21 @@ script to do this, and make the required package a devDependency.</p>
 <p>The <code>prepublish</code> script will be run before publishing, so that users
 can consume the functionality without requiring them to compile it
 themselves.  In dev mode (ie, locally running <code>npm install</code>), it'll
-run this script as well, so that you can test it easily.</p>
-
-]]></full-description>
+run this script as well, so that you can test it easily.</p>]]></full-description>
   </entry>
   <entry name="bundledDependencies">
+    <aliases>
+      <alias>bundleDependencies</alias>
+    </aliases>
     <short-description>Dependencies bundled when publishing package</short-description>
     <full-description><![CDATA[
-
 <p>Array of package names that will be bundled when publishing the package.</p>
 
-<p>If this is spelled <code>"bundleDependencies"</code>, then that is also honorable.</p>
-
-]]></full-description>
+<p>If this is spelled <code>"bundleDependencies"</code>, then that is also honorable.</p>]]></full-description>
   </entry>
   <entry name="optionalDependencies">
     <short-description>Options dependencies</short-description>
     <full-description><![CDATA[
-
 <p>If a dependency can be used, but you would like npm to proceed if it
 cannot be found or fails to install, then you may put it in the
 <code>optionalDependencies</code> hash.  This is a map of package name to version
@@ -494,14 +454,11 @@ if (foo) {
 }</code></pre>
 
 <p>Entries in <code>optionalDependencies</code> will override entries of the same name in
-<code>dependencies</code>, so it's usually best to only put in one place.</p>
-
-]]></full-description>
+<code>dependencies</code>, so it's usually best to only put in one place.</p>]]></full-description>
   </entry>
   <entry name="engines">
     <short-description>Compatible node and npm versions</short-description>
     <full-description><![CDATA[
-
 <p>You can specify the version of node that your stuff works on:</p>
 
 <pre><code>{ "engines" : { "node" : "&gt;=0.10.3 &lt;0.12" } }</code></pre>
@@ -519,14 +476,11 @@ are capable of properly installing your program.  For example:</p>
 <pre><code>{ "engines" : { "npm" : "~1.0.20" } }</code></pre>
 
 <p>Note that, unless the user has set the <code>engine-strict</code> config flag, this
-field is advisory only.</p>
-
-]]></full-description>
+field is advisory only.</p>]]></full-description>
   </entry>
   <entry name="engineStrict">
     <short-description>Require compatible engines only</short-description>
     <full-description><![CDATA[
-
 <p>If you are sure that your module will <em>definitely not</em> run properly on
 versions of Node/npm other than those specified in the <code>engines</code> hash,
 then you can set <code>"engineStrict": true</code> in your package.json file.
@@ -536,14 +490,11 @@ This will override the user's <code>engine-strict</code> config setting.</p>
 engines hash is something overly restrictive, you can quite easily and
 inadvertently lock yourself into obscurity and prevent your users from
 updating to new versions of Node.  Consider this choice carefully.  If
-people abuse it, it will be removed in a future version of npm.</p>
-
-]]></full-description>
+people abuse it, it will be removed in a future version of npm.</p>]]></full-description>
   </entry>
   <entry name="os">
     <short-description>Compatible operating systems</short-description>
     <full-description><![CDATA[
-
 <p>You can specify which operating systems your
 module will run on:</p>
 
@@ -557,14 +508,11 @@ just prepend the blacklisted os with a '!':</p>
 <p>The host operating system is determined by <code>process.platform</code></p>
 
 <p>It is allowed to both blacklist, and whitelist, although there isn't any
-good reason to do this.</p>
-
-]]></full-description>
+good reason to do this.</p>]]></full-description>
   </entry>
   <entry name="cpu">
     <short-description>Compatible CPU architectures</short-description>
     <full-description><![CDATA[
-
 <p>If your code only runs on certain cpu architectures,
 you can specify which ones.</p>
 
@@ -574,27 +522,21 @@ you can specify which ones.</p>
 
 <pre><code>"cpu" : [ "!arm", "!mips" ]</code></pre>
 
-<p>The host architecture is determined by <code>process.arch</code></p>
-
-]]></full-description>
+<p>The host architecture is determined by <code>process.arch</code></p>]]></full-description>
   </entry>
   <entry name="preferGlobal">
     <short-description>true, if global installation is preferred</short-description>
     <full-description><![CDATA[
-
 <p>If your package is primarily a command-line application that should be
 installed globally, then set this value to <code>true</code> to provide a warning
 if it is installed locally.</p>
 
 <p>It doesn't actually prevent users from installing it locally, but it
-does help prevent some confusion if it doesn't work as expected.</p>
-
-]]></full-description>
+does help prevent some confusion if it doesn't work as expected.</p>]]></full-description>
   </entry>
   <entry name="private">
     <short-description>true, if package shouldn't be published</short-description>
     <full-description><![CDATA[
-
 <p>If you set <code>"private": true</code> in your package.json, then npm will refuse
 to publish it.</p>
 
@@ -602,14 +544,11 @@ to publish it.</p>
 If you would like to ensure that a given package is only ever published
 to a specific registry (for example, an internal registry),
 then use the <code>publishConfig</code> hash described below
-to override the <code>registry</code> config param at publish-time.</p>
-
-]]></full-description>
+to override the <code>registry</code> config param at publish-time.</p>]]></full-description>
   </entry>
   <entry name="publishConfig">
     <short-description>Set of config values to use at publish-time</short-description>
     <full-description><![CDATA[
-
 <p>This is a set of config values that will be used at publish-time.  It's
 especially handy if you want to set the tag or registry, so that you can
 ensure that a given package is not tagged with "latest" or published to
@@ -619,22 +558,6 @@ the global public registry by default.</p>
 "registry" probably matter for the purposes of publishing.</p>
 
 <p>See <code><a href="https://npmjs.org/doc/misc/npm-config.html">npm-config(7)</a></code> to see the list of config options that can be
-overridden.</p>
-
-]]></full-description>
-  </entry>
-  <entry name="licenses">
-    <short-description>Licenses of project</short-description>
-    <full-description><![CDATA[<p>You should specify a license for your package so that people know how they are
-permitted to use it, and any restrictions you're placing on it.</p>
-<p>It is more verbose plural form, then "license":</p>
-<pre><code>"licenses" : [
-{ "type" : "MyLicense"
-, "url" : "http://github.com/owner/project/path/to/license"
-}
-]
-</code></pre>
-<p>It's also a good idea to include a license file at the top level in your package.</p>
-]]></full-description>
+overridden.</p>]]></full-description>
   </entry>
 </entries>

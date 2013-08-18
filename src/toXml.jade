@@ -3,6 +3,11 @@
 entries
   each entry in entries
     entry(name='#{entry.name}')
+      if entry.aliases.length > 0
+        aliases
+          each alias in entry.aliases
+            alias.
+              !{alias}
       short-description.
         !{entry.shortDescription}
       full-description.

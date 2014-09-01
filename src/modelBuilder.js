@@ -48,7 +48,7 @@ function fixRelativeLinks($, $root) {
       var absolute = href.indexOf('http://') === 0 || href.indexOf('https://') === 0;
       if (!absolute) {
         if (href.indexOf('/') !== 0) {
-          href = '/doc/' + href;
+          href = '/doc/files/' + href;
         }
         href = 'https://npmjs.org' + href;
         $a.attr('href', href);

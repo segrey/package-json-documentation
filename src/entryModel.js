@@ -23,6 +23,7 @@ var entryNames = {
   'config' : 'Configuration parameters',
   'dependencies' : 'Dependencies of package',
   'devDependencies' : 'Development dependencies of package',
+  'peerDependencies' : 'Peer dependencies of package',
   'bundledDependencies' : { shortDescription: 'Dependencies bundled when publishing package',
                             aliases: ['bundleDependencies']},
   'optionalDependencies' : 'Options dependencies',
